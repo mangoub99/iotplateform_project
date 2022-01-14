@@ -121,13 +121,7 @@ export default function SignInSide() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link1
-                to={
-                  pswrdInput === "admin" && emailInput === "admin@admin.com"
-                    ? "/Dashboard"
-                    : ""
-                }
-              >
+              <Link1 to={"/Dashboard"}>
                 <Button
                   type="submit"
                   fullWidth
