@@ -1,18 +1,17 @@
 import React from "react";
 import Navbar from "./Navbar";
 import "./Style.css";
+import Header from "./containers/header/Header";
+import MakingSteps from "./containers/makingSteps/MakingSteps";
+import Features from "./containers/features/Features";
+
 const Home = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <img
-          src="http://www.inpt.ac.ma/sites/default/files/ifra%202.png"
-          width="100%"
-          height="450px"
-          alt="inpt"
-        />
-      </div>
+      <Header />
+      <MakingSteps />
+      <Features />
     </>
   );
 };
