@@ -1,23 +1,22 @@
 import React from 'react';
-import iot2 from '../../images/iot2.png';
 import './Header.css';
 
-const Header = () => (
+const Header = ({hText, pText1, pText2, btnText, imgSrc}) => (
   <div className="gpt3__header section__padding" id="home">
     <div className="gpt3__header-content">
-      <h1 className="gradient__text">IOT Weather Station Plateform </h1>
-      <p>Internet of Things, or IoT, has changed the frequency with which we actually interact with machines. Last year, there were an estimated 6 billion IoT devices in use, and it's not only consumers using them but also organizations and governments.<br/><br/> Check out our IOT solution to improve productivity in newer ways.</p>
+      <h1 className="gradient__text">{hText} </h1>
+      <p>{pText1}<br/><br/> {pText2}</p>
 
       <div className="gpt3__header-content__input">
 
-        <button type="button">Explore</button>
+        <button type="button">{btnText}</button>
       </div>
 
       
     </div>
 
     <div className="gpt3__header-image">
-      <img src={iot2} alt='IOT' />
+      <img src={imgSrc} alt='IOT' />
     </div>
   </div>
 );

@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <NavLink to="/Overview">
+        <NavLink to="/Home">
           <img
             src={require("../images/logo.png")}
             alt="logo"
@@ -23,14 +23,14 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/Overview/About" activestyle="true">
+          <NavLink to="/Home" activestyle="true">
+            Home
+          </NavLink>
+          <NavLink to="/About" activestyle="true">
             About
           </NavLink>
-          <NavLink to="/Overview/Team" activestyle="true">
+          <NavLink to="/Team" activestyle="true">
             Team
-          </NavLink>
-          <NavLink to="/Overview/ContactUs" activestyle="true">
-            Contact Us
           </NavLink>
 
           {/* Second Nav */}

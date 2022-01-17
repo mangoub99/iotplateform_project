@@ -9,7 +9,6 @@ const MakingSteps = () => (
     </div>
     <div className="MS__whatMS-heading">
       <h1 className="gradient__text">IOT Weather Station<br/> The optimal solution for farmers</h1>
-      <p>How ?</p>
     </div>
     <div className="MS__whatMS-container">
       <Feature title=" Helps Farmers adapt to climate change" text="The effects of climate change affect farmers’ ability to grow the food we all need. Increasingly volatile weather and more extreme events – like floods and droughts.But thanks to IOT weather station, it will be possible to predict climate changes and take early precautions" />

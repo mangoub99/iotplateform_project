@@ -5,15 +5,14 @@ import SignInSide from "./SignInSide";
 import Home from "./projectPresent/Home"
 import About from "./projectPresent/About"
 import Team from "./projectPresent/Team"
-import ContactUs from "./projectPresent/ContactUs"
+
 const App = () => {
     return (
     <Router>
       <Routes>
-        <Route path="/Overview" element={<Home />} />
-        <Route path="/Overview/About" element={<About />} />
-        <Route path="/Overview/Team" element={<Team />} />
-        <Route path="/Overview/ContactUs" element={<ContactUs />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Team" element={<Team />} />
         <Route path="/" element={<SignInSide />} />
         <Route path="/Dashboard" element={<Dashboard />} />
       </Routes>

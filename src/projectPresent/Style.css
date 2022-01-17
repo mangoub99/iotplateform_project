@@ -6,9 +6,3 @@
   margin: 0;
   padding: 0;
 }
-
-img.blur {
-  -webkit-filter: blur(4px);
-  filter: blur(4px);
-  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
-}
