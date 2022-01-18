@@ -13,25 +13,43 @@ const Footer = () => {
         </div>
         <div className="bg-dark">
           <ul>
-            <li>
-              <Link to="/Overview">Home</Link>
+            <li id="home">
+              <Link to="/" onClick={window.scrollTo(0, 0)}>
+                Home
+              </Link>
             </li>
-            <li>
-              <Link to="/Overview/About">About</Link>
+            <li id="about">
+              <Link to="/About" onClick={window.scrollTo(0, 0)}>
+                About
+              </Link>
             </li>
-            <li>
-              <Link to="/Overview/Team">Team</Link>
+            <li id="team">
+              <Link to="/Team" onClick={window.scrollTo(0, 0)}>
+                Team
+              </Link>
             </li>
           </ul>
         </div>
         <div className="social">
-          <a href="https://github.com/mangoub99">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://github.com/mangoub99"
+          >
             <i className="fab fa-github fa-2x"></i>
           </a>
-          <a href="https://web.facebook.com/Mgoussama/">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://web.facebook.com/Mgoussama/"
+          >
             <i className="fab fa-facebook fa-2x"></i>
           </a>
-          <a href="https://www.instagram.com/oussama_mg11/?hl=en">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://www.instagram.com/oussama_mg11/?hl=en"
+          >
             <i className="fab fa-instagram fa-2x"></i>
           </a>
         </div>

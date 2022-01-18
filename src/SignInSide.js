@@ -33,6 +33,7 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
+
 export default function SignInSide() {
   let emailInput = "";
   let pswrdInput = "";
@@ -121,7 +122,7 @@ export default function SignInSide() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link1 to={"/Home"}>
+              <Link1 to={"/Dashboard"}>
                 <Button
                   type="submit"
                   fullWidth
