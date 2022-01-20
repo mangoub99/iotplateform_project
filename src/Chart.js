@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import { useTheme } from "@mui/material/styles";
 import {
   LineChart,
@@ -15,21 +16,28 @@ function createData(time, amount) {
   return { time, amount };
 }
 
-const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
-  createData("12:00", 0),
-  createData("15:00", 0),
-  createData("18:00", 5),
-  createData("21:00", 2400),
-  createData("24:00", undefined),
-];
+let data = [];
+
+const getData = async (data) => {
+  const res = await axios.get(
+    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
+  );
+  var j = 0;
+  Object.values(res.data)
+    .filter(
+      (element) =>
+        element.Temperature !== "--" && parseFloat(element.Temperature) > 0
+    )
+    .map((element) => {
+      data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
+      j = (j + 1) % 24;
+    });
+  console.log(data);
+};
+getData(data);
 
 export default function Chart() {
   const theme = useTheme();
-
   return (
     <React.Fragment>
       <Title>Today</Title>
