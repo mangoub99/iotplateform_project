@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
   Label,
+  Tooltip,
   ResponsiveContainer,
 } from "recharts";
 import Title from "./Title";
@@ -40,7 +41,7 @@ export default function Chart() {
   const theme = useTheme();
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>Temperature surveillance </Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -56,22 +57,11 @@ export default function Chart() {
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
           />
+
           <YAxis
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
-          >
-            <Label
-              angle={270}
-              position="left"
-              style={{
-                textAnchor: "middle",
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
-              }}
-            >
-              Sales ($)
-            </Label>
-          </YAxis>
+          />
           <Line
             isAnimationActive={false}
             type="monotone"
@@ -79,6 +69,7 @@ export default function Chart() {
             stroke={theme.palette.primary.main}
             dot={false}
           />
+          <Tooltip />
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>
