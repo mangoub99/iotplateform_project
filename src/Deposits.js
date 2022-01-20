@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Title from "./Title";
 
@@ -7,21 +6,36 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+/* const averageData = (data) => {
+  // Calculate Average func
+  const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+  let arrayVal = [];
+  data.map((element) => arrayVal.push(parseFloat(element.Temperature)));
+  return average(arrayVal);
+}; */
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+let data = [];
+for (var i = 0; i < 24; i++) {
+  data.push(randomNumber(33, 45));
+}
+let avr = average(data).toFixed(2);
+
+export default function Deposits(/* { data } */) {
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
+      <Title>Average Temperature</Title>
       <Typography component="p" variant="h4">
-        $3,024.00
+        {avr}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
+        on 20 January, 2022
       </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
-        </Link>
-      </div>
     </React.Fragment>
   );
 }

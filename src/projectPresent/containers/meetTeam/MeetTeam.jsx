@@ -2,6 +2,7 @@ import React from 'react'
 import "./MeetTeam.css"
 import img1 from "../../images/img1.png";
 import img2 from "../../images/img2.jpg";
+import filledimg from "../../images/filledimg.jpg";
 
 const MeetTeam = () => {
     return (
@@ -12,7 +13,7 @@ const MeetTeam = () => {
 
         <h3 className="user-name">Mangoub Oussama</h3>
         <h5>IT engineer student</h5>
-        <p> Web Developer  </p>
+        <p> IOT/Web Developer  </p>
         <div className="social">
           <a
             rel="noreferrer"
@@ -38,16 +39,16 @@ const MeetTeam = () => {
         </div>
             </div>
             <div className="profile">
-        <img src={img2} alt="img2" className="profile-img"/>
+        <img src={filledimg} alt="img2" className="profile-img"/>
 
-        <h3 className="user-name">Lorem, ipsum.</h3>
-        <h5>Managing Partner</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam facilis sint quod.</p>
+        <h3 className="user-name">Abdelmoumen Amine</h3>
+        <h5>IT engineer student</h5>
+        <p>IOT/Web Developer</p>
         <div className="social">
           <a
             rel="noreferrer"
             target="_blank"
-            href="https://github.com/mangoub99"
+            href="https://github.com/amineabdelmoumen"
           >
             <i className="fab fa-github fa-2x"></i>
           </a>

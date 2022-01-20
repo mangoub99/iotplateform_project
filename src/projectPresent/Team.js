@@ -11,10 +11,10 @@ const Team = () => {
       <Header
         hText={"Meet the Team"}
         pText1={
-          "A combination of  modern technologies were used to build and run our project. Sometimes called a “solutions stack,”"
+          "Behind every project that was built there is a team of  passionate developers "
         }
         pText2={
-          "In this section, we invite you to have a general view on these different technologies and powerfull tools. "
+          "In this section, we invite you to have a close view on the project developers "
         }
         btnText={"Discover"}
         imgSrc={team}

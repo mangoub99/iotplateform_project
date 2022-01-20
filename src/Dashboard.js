@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -22,6 +23,31 @@ import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
 
+// Generate Sales Data
+function createData(time, amount) {
+  return { time, amount };
+}
+
+/* let data = [];
+
+const getData = async (data) => {
+  const res = await axios.get(
+    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
+  );
+  var j = 0;
+  Object.values(res.data)
+    .filter(
+      (element) =>
+        element.Temperature !== "--" && parseFloat(element.Temperature) > 0
+    )
+    .map((element) => {
+      data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
+      j = (j + 1) % 24;
+    });
+  console.log(data);
+};
+getData(data); */
+
 function Copyright(props) {
   return (
     <Typography
@@ -31,8 +57,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="#">
+        IOT Weather Station
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -86,16 +112,21 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme();
+/* const mdTheme = createTheme(); */
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -175,7 +206,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  <Chart /* data={data} */ />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

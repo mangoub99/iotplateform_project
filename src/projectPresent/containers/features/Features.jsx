@@ -4,7 +4,7 @@ import './Features.css';
 
 const featuresData = [
   {
-    title: 'Getting emperature/humidity measurements Data',
+    title: 'Getting Temperature/humidity measurements Data',
     text: 'collect Data from temperature and humidity sensors by using a system on a chip microcontroller with integrated Wi-Fi and dual-mode Bluetooth, ',
   },
   {

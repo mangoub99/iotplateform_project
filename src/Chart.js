@@ -1,5 +1,4 @@
 import * as React from "react";
-import axios from "axios";
 import { useTheme } from "@mui/material/styles";
 import {
   LineChart,
@@ -10,41 +9,31 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Title from "./Title";
 
-// Generate Sales Data
+// Function to generate random number
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 function createData(time, amount) {
   return { time, amount };
 }
 
 let data = [];
+for (var i = 0; i < 24; i++) {
+  data.push(createData(`${i}:00`, randomNumber(33, 45)));
+}
 
-const getData = async (data) => {
-  const res = await axios.get(
-    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
-  );
-  var j = 0;
-  Object.values(res.data)
-    .filter(
-      (element) =>
-        element.Temperature !== "--" && parseFloat(element.Temperature) > 0
-    )
-    .map((element) => {
-      data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
-      j = (j + 1) % 24;
-    });
-  console.log(data);
-};
-getData(data);
-
-export default function Chart() {
+export default function Chart(/* { data } */) {
   const theme = useTheme();
   return (
     <React.Fragment>
       <Title>Temperature surveillance </Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={data} /* {data} */
           margin={{
             top: 16,
             right: 16,
