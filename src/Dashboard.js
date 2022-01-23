@@ -28,9 +28,37 @@ function createData(time, amount) {
   return { time, amount };
 }
 
-/* let data = [];
+//function to return the average value of an array of numbers
+const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
 
-const getData = async (data) => {
+//defining our Data arrays
+let tempData = [];
+let humData = [];
+let avrTemp = [];
+let avrHum = [];
+
+// recieve humidity data from our Firebase Database and assign it to the array prop
+const getDataH = async (data) => {
+  const res = await axios.get(
+    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/humidity.json"
+  );
+  var j = 0;
+  Object.values(res.data)
+    .filter(
+      (element) =>
+        element.Humidity !== "--" && parseFloat(element.Humidity) > 34
+    )
+    .map((element) => {
+      avrHum.push(parseFloat(element.Humidity) - 100);
+
+      data.push(createData(`${j}:0`, parseFloat(element.Humidity) - 100));
+      j = (j + 1) % 24;
+    });
+};
+console.log(avrHum);
+
+// recieve temperature data from our Firebase Database and assign it to the array prop
+const getDataT = async (data) => {
   const res = await axios.get(
     "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
   );
@@ -41,12 +69,13 @@ const getData = async (data) => {
         element.Temperature !== "--" && parseFloat(element.Temperature) > 0
     )
     .map((element) => {
+      avrTemp.push(parseFloat(element.Temperature));
       data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
       j = (j + 1) % 24;
     });
-  console.log(data);
 };
-getData(data); */
+getDataT(tempData);
+getDataH(humData);
 
 function Copyright(props) {
   return (
@@ -206,7 +235,20 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Chart /* data={data} */ />
+                  <Chart
+                    data={tempData}
+                    title="Temperature surveillance (°C)"
+                  />
+                </Paper>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 240,
+                  }}
+                >
+                  <Chart data={humData} title="Humidity surveillance (%)" />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -219,7 +261,17 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <Deposits av={average(avrTemp)} title="Temperature" />
+                </Paper>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 240,
+                  }}
+                >
+                  <Deposits av={average(avrHum)} title="Humidity" />
                 </Paper>
               </Grid>
               {/* Recent Orders */}

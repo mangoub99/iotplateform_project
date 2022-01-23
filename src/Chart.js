@@ -12,25 +12,11 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Title from "./Title";
 
-// Function to generate random number
-function randomNumber(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function createData(time, amount) {
-  return { time, amount };
-}
-
-let data = [];
-for (var i = 0; i < 24; i++) {
-  data.push(createData(`${i}:00`, randomNumber(33, 45)));
-}
-
-export default function Chart(/* { data } */) {
+export default function Chart({ data, title }) {
   const theme = useTheme();
   return (
     <React.Fragment>
-      <Title>Temperature surveillance </Title>
+      <Title>{title} </Title>
       <ResponsiveContainer>
         <LineChart
           data={data} /* {data} */
