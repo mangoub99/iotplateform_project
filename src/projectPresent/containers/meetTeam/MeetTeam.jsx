@@ -1,7 +1,6 @@
 import React from 'react'
 import "./MeetTeam.css"
-import img1 from "../../images/img1.png";
-import img2 from "../../images/img2.jpg";
+import img1 from "../../images/img1.jpg";
 import filledimg from "../../images/filledimg.jpg";
 
 const MeetTeam = () => {

@@ -6,7 +6,7 @@ export default function Deposits({ title, av }) {
   return (
     <React.Fragment>
       <Title>Average {title}</Title>
-      <Typography component="p" variant="h4">
+      <Typography component="div" variant="string">
         {av}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>

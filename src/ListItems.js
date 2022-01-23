@@ -5,15 +5,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
+
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 export const mainListItems = (
   <div>
-    <Link to="/Dashboard" activeStyle="true">
+    <ListItem button>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="User Profile" />
+    </ListItem>
+    <Link to="/Dashboard" style={{ textDecoration: "none", color: "white" }}>
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
@@ -21,14 +26,10 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </ListItem>
     </Link>
-
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Profile" />
-    </ListItem>
-    <Link to="/Dashboard/HistoryT">
+    <Link
+      to="/Dashboard/HistoryT"
+      style={{ textDecoration: "none", color: "white" }}
+    >
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
@@ -36,7 +37,10 @@ export const mainListItems = (
         <ListItemText primary="Temperature History" />
       </ListItem>
     </Link>
-    <Link to="/Dashboard/HistoryH">
+    <Link
+      to="/Dashboard/HistoryH"
+      style={{ textDecoration: "none", color: "white" }}
+    >
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
@@ -61,12 +65,6 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
     </ListItem>
   </div>
 );

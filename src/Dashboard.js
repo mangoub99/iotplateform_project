@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,11 +18,15 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import HomeIcon from "@mui/icons-material/Home";
 import { mainListItems, secondaryListItems } from "./ListItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
-import Orders from "./Orders";
+
+// Generate random number between two given values
+// function randomNumber(min, max) {
+//   return Math.random() * (max - min) + min;
+// }
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -29,53 +34,15 @@ function createData(time, amount) {
 }
 
 //function to return the average value of an array of numbers
-const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+const average = (arr) => {
+  return Math.round((arr.reduce((a, b) => a + b, 0) / arr.length) * 1e2) / 1e2;
+};
 
 //defining our Data arrays
 let tempData = [];
 let humData = [];
 let avrTemp = [];
 let avrHum = [];
-
-// recieve humidity data from our Firebase Database and assign it to the array prop
-const getDataH = async (data) => {
-  const res = await axios.get(
-    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/humidity.json"
-  );
-  var j = 0;
-  Object.values(res.data)
-    .filter(
-      (element) =>
-        element.Humidity !== "--" && parseFloat(element.Humidity) > 34
-    )
-    .map((element) => {
-      avrHum.push(parseFloat(element.Humidity) - 100);
-
-      data.push(createData(`${j}:0`, parseFloat(element.Humidity) - 100));
-      j = (j + 1) % 24;
-    });
-};
-console.log(avrHum);
-
-// recieve temperature data from our Firebase Database and assign it to the array prop
-const getDataT = async (data) => {
-  const res = await axios.get(
-    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
-  );
-  var j = 0;
-  Object.values(res.data)
-    .filter(
-      (element) =>
-        element.Temperature !== "--" && parseFloat(element.Temperature) > 0
-    )
-    .map((element) => {
-      avrTemp.push(parseFloat(element.Temperature));
-      data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
-      j = (j + 1) % 24;
-    });
-};
-getDataT(tempData);
-getDataH(humData);
 
 function Copyright(props) {
   return (
@@ -85,7 +52,6 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
       <Link color="inherit" href="#">
         IOT Weather Station
       </Link>{" "}
@@ -154,6 +120,48 @@ function DashboardContent() {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    // recieve humidity data from our Firebase Database and assign it to the array prop
+    const getDataH = async (data) => {
+      const res = await axios.get(
+        "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/humidity.json"
+      );
+      var j = 0;
+      Object.values(res.data)
+        .filter(
+          (element) =>
+            element.Humidity !== "--" && parseFloat(element.Humidity) > 34
+        )
+        .map((element) => {
+          avrHum.push(parseFloat(element.Humidity) - 100);
+
+          data.push(createData(`${j}:0`, parseFloat(element.Humidity) - 100));
+          j = (j + 1) % 24;
+        });
+    };
+
+    // recieve temperature data from our Firebase Database and assign it to the array prop
+    const getDataT = async (data) => {
+      const res = await axios.get(
+        "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
+      );
+      var j = 0;
+      Object.values(res.data)
+        .filter(
+          (element) =>
+            element.Temperature !== "--" && parseFloat(element.Temperature) > 0
+        )
+        .map((element) => {
+          avrTemp.push(parseFloat(element.Temperature));
+          data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
+          j = (j + 1) % 24;
+        });
+    };
+
+    getDataT(tempData);
+    getDataH(humData);
+  }, []);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: "flex" }}>
@@ -185,11 +193,13 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Link to="/">
+              <IconButton color="inherit">
+                <Badge color="secondary">
+                  <HomeIcon />
+                </Badge>
+              </IconButton>
+            </Link>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -272,12 +282,6 @@ function DashboardContent() {
                   }}
                 >
                   <Deposits av={average(avrHum)} title="Humidity" />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
                 </Paper>
               </Grid>
             </Grid>

@@ -1,6 +1,6 @@
 import * as React from "react";
+
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -17,65 +17,25 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import HomeIcon from "@mui/icons-material/Home";
 import { mainListItems, secondaryListItems } from "./ListItems";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
 import Orders from "./Orders";
 
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
+// Generate Order Data
+function createData(id, date, time, value) {
+  return { id, date, time, value };
+}
+// Function to generate random number
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
-//function to return the average value of an array of numbers
-const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
-
-//defining our Data arrays
-let tempData = [];
-let humData = [];
-let avrTemp = [];
-let avrHum = [];
-
-// recieve humidity data from our Firebase Database and assign it to the array prop
-const getDataH = async (data) => {
-  const res = await axios.get(
-    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/humidity.json"
+const rowsH = [];
+for (var i = 0; i < 24; i++) {
+  rowsH.push(
+    createData(i, "21 January 2022", `${i}:00`, randomNumber(65, 66).toFixed(1))
   );
-  var j = 0;
-  Object.values(res.data)
-    .filter(
-      (element) =>
-        element.Humidity !== "--" && parseFloat(element.Humidity) > 34
-    )
-    .map((element) => {
-      avrHum.push(parseFloat(element.Humidity) - 100);
-
-      data.push(createData(`${j}:0`, parseFloat(element.Humidity) - 100));
-      j = (j + 1) % 24;
-    });
-};
-console.log(avrHum);
-
-// recieve temperature data from our Firebase Database and assign it to the array prop
-const getDataT = async (data) => {
-  const res = await axios.get(
-    "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
-  );
-  var j = 0;
-  Object.values(res.data)
-    .filter(
-      (element) =>
-        element.Temperature !== "--" && parseFloat(element.Temperature) > 0
-    )
-    .map((element) => {
-      avrTemp.push(parseFloat(element.Temperature));
-      data.push(createData(`${j}:0`, parseFloat(element.Temperature)));
-      j = (j + 1) % 24;
-    });
-};
-getDataT(tempData);
-getDataH(humData);
+}
 
 function Copyright(props) {
   return (
@@ -85,7 +45,6 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
       <Link color="inherit" href="#">
         IOT Weather Station
       </Link>{" "}
@@ -149,7 +108,7 @@ const darkTheme = createTheme({
 });
 
 function HistoryHumContent() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -185,9 +144,10 @@ function HistoryHumContent() {
             >
               Dashboard
             </Typography>
+
             <IconButton color="inherit">
               <Badge color="secondary">
-                <NotificationsIcon />
+                <HomeIcon />
               </Badge>
             </IconButton>
           </Toolbar>
@@ -225,59 +185,10 @@ function HistoryHumContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart
-                    data={tempData}
-                    title="Temperature surveillance (°C)"
-                  />
-                </Paper>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart data={humData} title="Humidity surveillance (%)" />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits av={average(avrTemp)} title="Temperature" />
-                </Paper>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits av={average(avrHum)} title="Humidity" />
-                </Paper>
-              </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
+                  <Orders row={rowsH} />
                 </Paper>
               </Grid>
             </Grid>
