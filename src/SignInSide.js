@@ -35,9 +35,6 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  let emailInput = "";
-  let pswrdInput = "";
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -100,10 +97,6 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={(e) => {
-                  emailInput = e.target.value;
-                  console.log(emailInput);
-                }}
               />
               <TextField
                 margin="normal"
@@ -114,10 +107,6 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e) => {
-                  pswrdInput = e.target.value;
-                  console.log(pswrdInput);
-                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

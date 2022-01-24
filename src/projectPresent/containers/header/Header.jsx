@@ -7,10 +7,7 @@ const Header = ({hText, pText1, pText2, btnText, imgSrc}) => (
       <h1 className="gradient__text">{hText} </h1>
       <p>{pText1}<br/><br/> {pText2}</p>
 
-      <div className="gpt3__header-content__input">
-
-        <button type="button">{btnText}</button>
-      </div>
+      
 
       
     </div>

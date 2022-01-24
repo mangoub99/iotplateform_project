@@ -115,7 +115,7 @@ const darkTheme = createTheme({
 });
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -126,6 +126,7 @@ function DashboardContent() {
       const res = await axios.get(
         "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/humidity.json"
       );
+
       var j = 0;
       Object.values(res.data)
         .filter(
@@ -138,6 +139,7 @@ function DashboardContent() {
           data.push(createData(`${j}:0`, parseFloat(element.Humidity) - 100));
           j = (j + 1) % 24;
         });
+      console.log();
     };
 
     // recieve temperature data from our Firebase Database and assign it to the array prop
@@ -145,7 +147,9 @@ function DashboardContent() {
       const res = await axios.get(
         "https://esp-32-36270-default-rtdb.europe-west1.firebasedatabase.app/test/temperature.json"
       );
+      console.log(res.data);
       var j = 0;
+      console.log(Object.values(res.data));
       Object.values(res.data)
         .filter(
           (element) =>
